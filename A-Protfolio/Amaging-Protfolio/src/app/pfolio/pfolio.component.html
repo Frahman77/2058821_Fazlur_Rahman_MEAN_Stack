@@ -1,0 +1,60 @@
+<div *ngIf="flag1">
+    <h1> login form </h1>
+
+    <form [formGroup]="loginRef" (ngSubmit)="checkUser()">
+        <label>UserName</label>
+        <input type="text" formControlName="user"/><br/>
+        <label>Password</label>
+        <input type="password" formControlName="pass"/><br/>
+        <input type="submit" value="Login" [disabled]="!loginRef.valid"/>
+        <input type="reset" value="reset"/>
+    </form>
+
+    <br>         <br>         <br>
+<input type="button" [value]="b1" (click)="Login()"/>
+
+</div>
+
+
+
+<div *ngIf="flag2">
+<h2>Registration Form</h2>
+<input type="button" value="Login" (click)="SignUp()"/><br/>
+<form  [formGroup]="SignupRef" (ngSubmit)="adduser()">
+    <label >First Name</label>
+    <input type="text" formControlName="firstname"><br>
+    <label >Last Name</label>
+    <input type="text" formControlName="lastname"><br>
+    <label >Username</label>
+    <input type="text" formControlName="username"><br>
+    <label >Password</label>
+    <input type="password" formControlName="password"><br>
+    <input type="button" value="Register" [disabled]="!SignupRef.valid" (click)="adduser()"/>
+    <input type="reset" value="reset"/>
+</form>
+</div>
+
+<div *ngIf="flag3">
+<h2>my portfolio</h2>
+<h1>Welcome {{name}}</h1>
+Contact Name : <input type="text" #nameRef/><br/>
+Phone No. : <input type="text" #phoneRef/><br/>
+
+<input type="button" value="save" 
+(click)="addContact(nameRef,phoneRef)"/><br/>
+<input type="button" value="Sign out" (click)="signout()"/>
+
+<hr>
+<table border="1">
+<tr>
+<th>Name </th>
+<TH>Phone No.</TH>
+
+</tr>
+<TR *ngFor="let cont of contacts">
+<td>{{cont.name}}</td>
+<td>{{cont.phone}}</td>
+
+</TR>
+</table>
+</div>
