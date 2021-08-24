@@ -25,8 +25,7 @@ import { environment } from '../environments/environment';
     TasktrackerComponent
   ],
   imports: [
-    
-      
+  
       BrowserAnimationsModule,
       MatButtonModule,
       MatFormFieldModule,
