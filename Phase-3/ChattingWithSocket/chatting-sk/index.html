@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/JavaScript">
+      var socket=io();
+      socket.emit("obj","Hello Server I am Web Socket Client")
+      socket.on("obj1",(msg)=>{
+          console.log(msg);
+      })
+      socket.on("clientObj",(msg)=>{
+      info=()=>{
+               let Message = document.getElementById("Message").value;
+               let name = document.getElementById("name").value;
+               socket.emit("clientObj",Message)
+
+                var p = document.createElement("p"); 
+                document.getElementById("info").appendChild(p);
+                var msgPTag = document.createElement("p");
+                var msgPTagContent = document.createTextNode( name +" say: "+Message);
+                msgPTag.appendChild(msgPTagContent);
+                p.appendChild(msgPTag);
+               document.getElementById("Message").value="";
+
+                var p = document.createElement("p"); 
+                document.getElementById("info").appendChild(p);
+                var msgPTag = document.createElement("p");
+                var msgPTagContent = document.createTextNode("Server say: "+msg);
+                msgPTag.appendChild(msgPTagContent);
+                p.appendChild(msgPTag);        
+
+               }
+        })
+   </script>
+</head>
+<body>
+    <h2>Chatting App</h2>
+    Name: <input type="text"  id="name"><br>
+    Message: <input type="text"  id="Message"><br>
+    <input type="button" value="send" onclick="info()">
+    <div id="info" ></div>
+</body>
+</html>
