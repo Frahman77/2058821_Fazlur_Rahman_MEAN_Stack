@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatApp</title>
+    <script type="text/JavaScript">
+    let ws = new WebSocket("ws://localhost:9090");
+
+    //open the connection
+ws.onopen = ()=>{
+        //send data to web socket server application
+        ws.send("Hello Server");
+    info = ()=>{
+        addChat();
+        let msg = document.getElementById("ab").value;
+        ws.send(msg);
+        document.getElementById("ab").value = "";
+        var user = document.getElementById("uname").value;
+        var chat = document.getElementById("chatbox");
+        var textToAdd = document.createTextNode(user+": "+ msg);
+        chat.appendChild(textToAdd);
+        var br = document.createElement("br");
+        chat.appendChild(br);
+        
+        ws.onmessage = (msg)=>{
+        
+            var server = document.getElementById("chatbox");
+            var textToAdd = document.createTextNode("Server: "+ msg.data);
+            server.appendChild(textToAdd);
+            var br = document.createElement("br");
+            chatbox.appendChild(br);
+        }
+      
+    }
+
+        
+      
+}
+
+const addChat = async()=>{
+        await fetch('/api/chat/save',{
+        method: 'POST',
+        body: JSON.stringify(userInput()),
+        headers: {'Content-Type':'application/json'}
+    })
+     alert("saved successfull")
+    }
+        const userInput = ()=>{
+        const input = {}
+        document.querySelectorAll('input').forEach(info=>{input[info.name]=info.value})
+        return input
+}
+    
+    </script>
+</head>
+<body>
+    
+            <h2 >The Chat App</h2>  
+   
+        <label>Name</label>
+        <input type="text" id="uname" name="uname" >
+
+
+        <form >
+                 <label >Message</label>
+                 <input type="text"  id="ab" name="message">
+             </div>
+             <button type="button"  onclick= info() id="blogBtn">Send</button>
+         </form>
+
+    <br>
+    <hr>
+            
+                    <p id="server" ></p>
+                    <p id="chatbox"></p>
+    
+</body>
+</html>
